@@ -1,10 +1,17 @@
+import { Container, Box } from "@mui/material";
 import { Outlet } from "react-router-dom";
 
 const LoginLayout = () => {
   return (
     <>
-      <div>LoginLayout</div>
-      <Outlet />
+      <Container
+        maxWidth="xs"
+        sx={{
+          mt: 15,
+        }}
+      >
+        <Outlet />
+      </Container>
     </>
   );
 };
