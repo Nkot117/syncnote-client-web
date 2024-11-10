@@ -17,8 +17,9 @@ const Register = () => {
           component="h1"
           variant="h4"
           sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}
+          textAlign={"center"}
         >
-          新規登録
+          サインアップ
         </Typography>
         <Box
           component="form"
@@ -36,7 +37,7 @@ const Register = () => {
               id="name"
               type="text"
               name="name"
-              placeholder="your name"
+              placeholder="user name"
               autoFocus
               required
               fullWidth
@@ -65,9 +66,25 @@ const Register = () => {
             </Box>
             <TextField
               name="password"
-              placeholder="••••••"
+              placeholder="*****"
               type="password"
               id="password"
+              autoComplete="current-password"
+              autoFocus
+              required
+              fullWidth
+              variant="outlined"
+            />
+          </FormControl>
+          <FormControl>
+            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+              <FormLabel htmlFor="password">確認パスワード</FormLabel>
+            </Box>
+            <TextField
+              name="confirmPassword"
+              placeholder="*****"
+              type="password"
+              id="confirmPassword"
               autoComplete="current-password"
               autoFocus
               required
@@ -78,7 +95,7 @@ const Register = () => {
         </Box>
 
         <Button type="submit" fullWidth variant="contained" color="primary">
-          新規登録
+          サインアップ
         </Button>
 
         <Typography sx={{ textAlign: "center" }}>
