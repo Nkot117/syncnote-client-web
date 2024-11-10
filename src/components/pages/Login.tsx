@@ -8,8 +8,21 @@ import {
   Typography,
 } from "@mui/material";
 import { LoginCard } from "../styles/LoginCardStyle";
+import authService from "../../service/authService";
 
 const Login = () => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const email = data.get("email") as string;
+    const password = data.get("password") as string;
+    try {
+      const response = await authService.login({ email, password });
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <>
       <LoginCard>
@@ -30,6 +43,7 @@ const Login = () => {
             width: "100%",
             gap: 2,
           }}
+          onSubmit={handleSubmit}
         >
           <FormControl>
             <FormLabel htmlFor="email">メールアドレス</FormLabel>
@@ -62,12 +76,10 @@ const Login = () => {
               variant="outlined"
             />
           </FormControl>
+          <Button type="submit" fullWidth variant="contained" color="primary">
+            ログイン
+          </Button>
         </Box>
-
-        <Button type="submit" fullWidth variant="contained" color="primary">
-          ログイン
-        </Button>
-
         <Typography sx={{ textAlign: "center" }}>
           <span>
             <Link
