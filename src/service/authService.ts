@@ -4,7 +4,8 @@ const authService = {
   login: async (data: { email: string; password: string }) => {
     try {
       const response = await authApi.login(data);
-      return response.data;
+      saveAccessToken(response.accessToken);
+      saveRefreshToken(response.refreshToken);
     } catch (error) {
       throw error;
     }
@@ -22,5 +23,13 @@ const authService = {
     }
   },
 };
+
+const saveAccessToken = (token: string) => {
+  localStorage.setItem("accessToken", token);
+}
+
+const saveRefreshToken = (token: string) => {
+  localStorage.setItem("refreshToken", token);
+}
 
 export default authService;
