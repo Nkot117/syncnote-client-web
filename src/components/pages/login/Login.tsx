@@ -9,8 +9,11 @@ import {
 } from "@mui/material";
 import { LoginCard } from "../../styles/LoginCardStyle";
 import authService from "../../../service/authService";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+  
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
@@ -19,6 +22,7 @@ const Login = () => {
     try {
       const response = await authService.login({ email, password });
       console.log(response);
+      navigate("/")
     } catch (error) {
       console.error(error);
     }
