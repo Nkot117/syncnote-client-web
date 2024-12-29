@@ -1,11 +1,12 @@
 import authApi from "../api/features/authApi";
+import authHelper from "../helpers/authHelper";
 
 const authService = {
   login: async (data: { email: string; password: string }) => {
     try {
       const response = await authApi.login(data);
-      saveAccessToken(response.accessToken);
-      saveRefreshToken(response.refreshToken);
+      authHelper.saveAccessToken(response.accessToken);
+      authHelper.saveRefreshToken(response.refreshToken);
     } catch (error) {
       throw error;
     }
@@ -23,13 +24,5 @@ const authService = {
     }
   },
 };
-
-const saveAccessToken = (token: string) => {
-  localStorage.setItem("accessToken", token);
-}
-
-const saveRefreshToken = (token: string) => {
-  localStorage.setItem("refreshToken", token);
-}
 
 export default authService;

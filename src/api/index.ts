@@ -1,4 +1,5 @@
 import axios from "axios";
+import authHelper from "../helpers/authHelper";
 const BASE_URL = "http://localhost:3000";
 const axiosClient = axios.create({ baseURL: BASE_URL });
 
@@ -7,6 +8,7 @@ axiosClient.interceptors.request.use((config) => {
     ...config,
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${authHelper.getAccessToken()}`,
     },
   };
 });
