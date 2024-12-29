@@ -8,7 +8,6 @@ import Home from "./components/pages/home/Home";
 import Memo from "./components/pages/home/Memo";
 
 const App = () => {
-
   return (
     <BrowserRouter>
       <Routes>
@@ -16,9 +15,10 @@ const App = () => {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
         </Route>
-        <Route path="/" element={< HomeLayout/>}>
+        <Route path="/" element={<HomeLayout />}>
           <Route index element={<Home />} />
-          <Route path="memo" element={<Memo />} />
+          <Route path="memo" element={<Home />} />
+          <Route path="memo/:id" element={<Memo />} />
         </Route>
       </Routes>
     </BrowserRouter>
