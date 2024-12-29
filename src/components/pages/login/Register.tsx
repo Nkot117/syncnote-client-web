@@ -7,8 +7,8 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { LoginCard } from "../styles/LoginCardStyle";
-import authService from "../../service/authService";
+import { LoginCard } from "../../styles/LoginCardStyle";
+import authService from "../../../service/authService";
 import { useState } from "react";
 
 const Register = () => {
