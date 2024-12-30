@@ -1,8 +1,18 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
 import Sidebar from "./component/Sidebar";
+import authHelper from "../../helpers/authHelper";
+import { useEffect } from "react";
 
 const HomeLayout = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (authHelper.getAccessToken() === null) {
+      navigate("/login");
+    }
+  }, [navigate]);
+
   return (
     <div>
       <Box sx={{ display: "flex" }}>
