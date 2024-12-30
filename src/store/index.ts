@@ -1,6 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import user from "./modules/user";
+import memo from "./modules/memo";
 
-export const store = configureStore({
-  reducer: { user },
+const store = configureStore({
+  reducer: { memo },
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export default store;

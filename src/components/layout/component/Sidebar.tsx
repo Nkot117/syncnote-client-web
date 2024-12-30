@@ -1,20 +1,9 @@
-import {
-  Box,
-  Drawer,
-  ListItemButton,
-  Typography,
-} from "@mui/material";
-
-const memoList = [
-  { id: 1, title: "初めてのメモ", content: "メモです" },
-  { id: 2, title: "初めてのメモ", content: "メモです" },
-  { id: 3, title: "初めてのメモ", content: "メモです" },
-  { id: 4, title: "初めてのメモ", content: "メモです" },
-  { id: 5, title: "初めてのメモ", content: "メモです" },
-  { id: 6, title: "初めてのメモ", content: "メモです" },
-];
+import { Box, Drawer, ListItemButton, Typography } from "@mui/material";
+import { useMemos } from "../../../hooks/useMemos";
 
 const Sidebar = () => {
+  const memos = useMemos();
+
   return (
     <Drawer
       container={window.document.body}
@@ -23,7 +12,7 @@ const Sidebar = () => {
       sx={{ width: 250, height: "100vh" }}
     >
       <Box sx={{ padding: 2, backgroundColor: "#f8f8f8", minHeight: "100vh" }}>
-        {memoList.map((memo) => (
+        {memos.map((memo) => (
           <ListItemButton
             key={memo.id}
             sx={{ pl: "20px" }}
