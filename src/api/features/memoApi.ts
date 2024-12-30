@@ -1,11 +1,12 @@
 import axiosClient from "..";
 import { MemoDetailResponse } from "../models/memo/MemoDetailResponse";
+import { MemoInfo } from "../models/memo/MemoInfo";
 import { MemoListResponse } from "../models/memo/MemoListResponse";
 import { MemoUpdateRequest } from "../models/memo/MemoUpdateRequest";
 
 const memoApi = {
-  createMemo: () => {
-    return axiosClient.post("api/memo/create");
+  createMemo: (data: { title: string; content: string }) => {
+    return axiosClient.post<MemoInfo>("api/memo/create", data);
   },
   getMemoList: () => {
     return axiosClient

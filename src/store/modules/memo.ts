@@ -26,7 +26,22 @@ const memo = createSlice({
           };
         });
       }
-    });
+    }),
+      builder.addCase(createMemo.fulfilled, (state, action) => {
+        if (!action.payload) {
+          return;
+        }
+
+        const newMemo = action.payload;
+        return [
+          {
+            id: newMemo.id,
+            title: newMemo.title,
+            content: newMemo.content,
+          },
+          ...state,
+        ];
+      });
   },
 });
 
@@ -39,6 +54,16 @@ const getAndSaveMemos = createAsyncThunk("memo/getAndSaveMemos", async () => {
     return null;
   }
 });
+const createMemo = createAsyncThunk("memo/createMemo", async () => {
+  try {
+    const newMemo = await memoApi.createMemo({
+      title: "", content:"",
+    });
+    return newMemo.data;
+  } catch (error) {
+    console.error(error);
+  }
+});
 
-export { getAndSaveMemos };
+export { getAndSaveMemos, createMemo };
 export default memo.reducer;
