@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 const Sidebar = () => {
   const memos = useMemos();
-  const [activeMemoIndex, setActiveMemoIndex] = useState(0)
+  const [activeMemoIndex, setActiveMemoIndex] = useState(0);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -25,13 +25,13 @@ const Sidebar = () => {
         {memos.map((memo, index) => (
           <ListItemButton
             key={memo.id}
-            sx={{ pl: "20px" }}
+            sx={{ pl: "20px", height: "50px" }}
             style={{ borderBottom: "1px solid #ccc" }}
             component={Link}
             to={`/memo/${memo.id}`}
             selected={index === activeMemoIndex}
           >
-            <Typography>{memo.title}</Typography>
+            <Typography sx={{ lineHeight: "50px" }}>{memo.title}</Typography>
           </ListItemButton>
         ))}
       </Box>
