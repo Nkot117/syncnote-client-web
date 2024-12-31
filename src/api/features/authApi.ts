@@ -1,7 +1,7 @@
 import axiosClient from "../index";
-import { LoginRequest } from "../models/login/LoginRequest";
-import { LoginResponse } from "../models/login/LoginResponse";
-import { RegisterRequest } from "../models/register/RegisterRequest";
+import { LoginRequest } from "../../models/login/LoginRequest";
+import { LoginResponse } from "../../models/login/LoginResponse";
+import { RegisterRequest } from "../../models/register/RegisterRequest";
 
 const authApi = {
   login: (data: LoginRequest) => {

@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import memoApi from "../../api/features/memoApi";
+import { MemoDetail } from "../../models/memo/MemoDetail";
 
-const initialState = [
+const initialState: MemoDetail[] = [
   {
     id: "",
     title: "",
@@ -15,17 +16,17 @@ const memo = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getAndSaveMemos.fulfilled, (_, action) => {
-      if (action.payload === null) {
+      if (!action.payload) {
         return initialState;
-      } else {
-        return action.payload.map((memo) => {
-          return {
-            id: memo.id,
-            title: memo.title,
-            content: memo.content,
-          };
-        });
       }
+
+      return action.payload.map((memo) => {
+        return {
+          id: memo.id,
+          title: memo.title,
+          content: memo.content,
+        };
+      });
     }),
       builder.addCase(createMemo.fulfilled, (state, action) => {
         if (!action.payload) {
@@ -47,19 +48,20 @@ const memo = createSlice({
 
 const getAndSaveMemos = createAsyncThunk("memo/getAndSaveMemos", async () => {
   try {
-    const memos = await memoApi.getMemoList();
-    return memos.memoList;
+    const response = await memoApi.getMemoList();
+    return response.memos;
   } catch (error) {
     console.error(error);
     return null;
   }
 });
+
 const createMemo = createAsyncThunk("memo/createMemo", async () => {
   try {
-    const newMemo = await memoApi.createMemo({
-      title: "", content:"",
+    return await memoApi.createMemo({
+      title: "",
+      content: "",
     });
-    return newMemo.data;
   } catch (error) {
     console.error(error);
   }

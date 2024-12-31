@@ -1,26 +1,27 @@
 import axiosClient from "..";
-import { MemoDetailResponse } from "../models/memo/MemoDetailResponse";
-import { MemoInfo } from "../models/memo/MemoInfo";
-import { MemoListResponse } from "../models/memo/MemoListResponse";
-import { MemoUpdateRequest } from "../models/memo/MemoUpdateRequest";
+import { MemoDetail } from "../../models/memo/MemoDetail";
+import { MemoList } from "../../models/memo/MemoList";
+import { MemoRequest } from "../../models/memo/MemoRequest";
 
 const memoApi = {
-  createMemo: (data: { title: string; content: string }) => {
-    return axiosClient.post<MemoInfo>("api/memo/create", data);
+  createMemo: (data: MemoRequest) => {
+    return axiosClient
+      .post<MemoDetail>("api/memo/create", data)
+      .then((response) => response.data);
   },
   getMemoList: () => {
     return axiosClient
-      .get<MemoListResponse>("api/memo/list")
+      .get<MemoList>("api/memo/list")
       .then((response) => response.data);
   },
   getMemoDetail: (id: string) => {
     return axiosClient
-      .get<MemoDetailResponse>(`api/memo/${id}`)
+      .get<MemoDetail>(`api/memo/${id}`)
       .then((response) => response.data);
   },
-  updateMemo: (id: string, data: MemoUpdateRequest) => {
+  updateMemo: (id: string, data: MemoRequest) => {
     return axiosClient
-      .patch<MemoDetailResponse>(`api/memo/${id}`, data)
+      .patch<MemoDetail>(`api/memo/${id}`, data)
       .then((response) => response.data);
   },
   deleteMemo: (id: string) => {

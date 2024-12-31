@@ -1,4 +1,4 @@
-export interface MemoUpdateRequest {
+export interface MemoRequest {
     title: string,
     content: string
 }
