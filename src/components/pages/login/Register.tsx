@@ -8,8 +8,8 @@ import {
   Typography,
 } from "@mui/material";
 import { LoginCard } from "../../styles/LoginCardStyle";
-import authService from "../../../service/authService";
 import { useState } from "react";
+import authApi from "../../../api/features/authApi";
 
 const Register = () => {
   const [isFinished, setIsFinished] = useState(false);
@@ -21,7 +21,7 @@ const Register = () => {
     const password = data.get("password") as string;
 
     try {
-      const respose = await authService.register({ name, email, password });
+      const respose = await authApi.register({ name, email, password });
       console.log(respose);
       setIsFinished(true);
     } catch (error) {
