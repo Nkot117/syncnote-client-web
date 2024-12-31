@@ -49,7 +49,7 @@ const memo = createSlice({
 const getAndSaveMemos = createAsyncThunk("memo/getAndSaveMemos", async () => {
   try {
     const response = await memoApi.getMemoList();
-    return response.memos;
+    return response.memoList;
   } catch (error) {
     console.error(error);
     return null;
