@@ -2,13 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import memoApi from "../../api/features/memoApi";
 import { MemoDetail } from "../../models/memo/MemoDetail";
 
-const initialState: MemoDetail[] = [
-  {
-    id: "",
-    title: "",
-    content: "",
-  },
-];
+const initialState: MemoDetail[]  = []
 
 const memo = createSlice({
   name: "memo",
