@@ -58,6 +58,14 @@ const memo = createSlice({
 
       return newMemos;
     });
+    builder.addCase(deleteMemo.fulfilled, (state, action) => {
+      if (!action.payload) {
+        return;
+      }
+
+      const deleteMemoId = action.payload.id;
+      return state.filter((memo) => memo.id !== deleteMemoId);
+    });
   },
 });
 
@@ -98,5 +106,18 @@ const updateMemo = createAsyncThunk<
   }
 });
 
-export { getAndSaveMemos, createMemo, updateMemo };
+const deleteMemo = createAsyncThunk<{ id: string }, { id: string }>(
+  "memo/deleteMemo",
+  async ({ id }) => {
+    try {
+      await memoApi.deleteMemo(id);
+      return { id };
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+);
+
+export { getAndSaveMemos, createMemo, updateMemo, deleteMemo };
 export default memo.reducer;

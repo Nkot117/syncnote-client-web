@@ -1,10 +1,10 @@
 import { Box, IconButton, TextField } from "@mui/material";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useMemos } from "../../../hooks/useMemos";
 import { useAppDispatch } from "../../../hooks/hooks";
-import { updateMemo } from "../../../store/modules/memo";
+import { deleteMemo, updateMemo } from "../../../store/modules/memo";
 
 const Memo = () => {
   const { id } = useParams();
@@ -14,6 +14,7 @@ const Memo = () => {
     title: "",
     content: "",
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (memos.length === 0) return;
@@ -44,6 +45,12 @@ const Memo = () => {
     dispatch(updateMemo({ id, memo: updatedMemo }));
   };
 
+  const sendDelete = async () => {
+    if (!id) return;
+    dispatch(deleteMemo({ id }));
+    navigate("/");
+  };
+
   return (
     <>
       <Box
@@ -53,7 +60,7 @@ const Memo = () => {
           padding: "10px 50px",
         }}
       >
-        <IconButton>
+        <IconButton onClick={sendDelete}>
           <DeleteOutlinedIcon />
         </IconButton>
       </Box>
