@@ -3,10 +3,13 @@ import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useMemos } from "../../../hooks/useMemos";
+import { useAppDispatch } from "../../../hooks/hooks";
+import { updateMemo } from "../../../store/modules/memo";
 
 const Memo = () => {
   const { id } = useParams();
   const memos = useMemos();
+  const dispatch = useAppDispatch();
   const [memo, setMemo] = useState({
     title: "",
     content: "",
@@ -32,6 +35,15 @@ const Memo = () => {
     setMemo({ ...memo, content: newContent });
   };
 
+  const sendUpdate = () => {
+    if (!id) return;
+    const updatedMemo = {
+      title: memo.title,
+      content: memo.content,
+    };
+    dispatch(updateMemo({ id, memo: updatedMemo }));
+  };
+
   return (
     <>
       <Box
@@ -53,6 +65,7 @@ const Memo = () => {
           fullWidth
           value={memo.title}
           onChange={updateTitle}
+          onBlur={sendUpdate}
           sx={{
             ".MuiOutlinedInput-input": { padding: 0 },
             ".MuiOutlinedInput-notchedOutline": { border: "none" },
@@ -65,6 +78,7 @@ const Memo = () => {
           fullWidth
           value={memo.content}
           onChange={updateContent}
+          onBlur={sendUpdate}
           sx={{
             ".MuiOutlinedInput-input": { padding: 0 },
             ".MuiOutlinedInput-notchedOutline": { border: "none" },

@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import memoApi from "../../api/features/memoApi";
 import { MemoDetail } from "../../models/memo/MemoDetail";
+import { MemoRequest } from "../../models/memo/MemoRequest";
 
 const initialState: MemoDetail[] = [];
 
@@ -37,6 +38,26 @@ const memo = createSlice({
           ...state,
         ];
       });
+    builder.addCase(updateMemo.fulfilled, (state, action) => {
+      if (!action.payload) {
+        return;
+      }
+
+      const updatedMemo = action.payload;
+      const newMemos = state.map((memo) => {
+        if (memo.id === updatedMemo.id) {
+          return {
+            id: updatedMemo.id,
+            title: updatedMemo.title,
+            content: updatedMemo.content,
+          };
+        } else {
+          return memo;
+        }
+      });
+
+      return newMemos;
+    });
   },
 });
 
@@ -61,5 +82,21 @@ const createMemo = createAsyncThunk("memo/createMemo", async () => {
   }
 });
 
-export { getAndSaveMemos, createMemo };
+const updateMemo = createAsyncThunk<
+  MemoDetail,
+  {
+    id: string;
+    memo: MemoRequest;
+  }
+>("memo/updatedMemo", async ({ id, memo }) => {
+  try {
+    const updatedMemo = await memoApi.updateMemo(id, memo);
+    return updatedMemo;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+});
+
+export { getAndSaveMemos, createMemo, updateMemo };
 export default memo.reducer;
