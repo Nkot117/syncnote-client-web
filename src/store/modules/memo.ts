@@ -21,7 +21,7 @@ const memo = createSlice({
           title: memo.title,
           content: memo.content,
         };
-      });
+      }).reverse();
     }),
       builder.addCase(createMemo.fulfilled, (state, action) => {
         if (!action.payload) {
@@ -30,13 +30,13 @@ const memo = createSlice({
 
         const newMemo = action.payload;
         return [
+          ...state,
           {
             id: newMemo.id,
             title: newMemo.title,
             content: newMemo.content,
           },
-          ...state,
-        ];
+        ].reverse();
       });
     builder.addCase(updateMemo.fulfilled, (state, action) => {
       if (!action.payload) {
