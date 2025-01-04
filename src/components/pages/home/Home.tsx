@@ -1,8 +1,7 @@
 import { Box, Button } from "@mui/material";
 import { useEffect, useRef } from "react";
-import { useAppDispatch } from "../../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import { useNavigate } from "react-router";
-import { useMemos } from "../../../hooks/useMemos";
 import { createMemo } from "../../../store/modules/memo";
 
 const Home = () => {
@@ -10,7 +9,7 @@ const Home = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const isClickButton = useRef(false);
-  const memos = useMemos();
+  const memos = useAppSelector((state) => state.memo);
 
   const clickCreateMemoButton = () => {
     isClickButton.current = true;

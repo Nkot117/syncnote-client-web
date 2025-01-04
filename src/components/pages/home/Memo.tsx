@@ -3,8 +3,7 @@ import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import { useMemos } from "../../../hooks/useMemos";
-import { useAppDispatch } from "../../../hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import {
   createMemo,
   deleteMemo,
@@ -14,7 +13,7 @@ import {
 const Memo = () => {
   console.log("Memo Render")
   const { id } = useParams();
-  const memos = useMemos();
+  const memos = useAppSelector((state) => state.memo);
   const dispatch = useAppDispatch();
   const isClickButton = useRef(false);
   const [memo, setMemo] = useState({
