@@ -2,7 +2,7 @@ import { Box, IconButton, TextField } from "@mui/material";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import {
   createMemo,
@@ -16,42 +16,44 @@ const Memo = () => {
   const memos = useAppSelector((state) => state.memo);
   const dispatch = useAppDispatch();
   const isClickButton = useRef(false);
-  const [memo, setMemo] = useState({
-    title: "",
-    content: "",
-  });
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (memos.length === 0) return;
-    const displayMemo = memos.find((memo) => memo.id === id);
-    if (!displayMemo) return;
-    setMemo({
-      title: displayMemo.title,
-      content: displayMemo.content,
-    });
+  const memo = useMemo(() => {
+    return memos.find((memo) => memo.id === id) || { title: "", content: "" };
   }, [id, memos]);
+
+  const [localMemo, setLocalMemo] = useState({
+    title: memo.title,
+    content: memo.content,
+  });
+
+  useEffect(() => {
+    setLocalMemo({
+      title: memo.title,
+      content: memo.content,
+    });
+  }, [memo]);
 
   const updateTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTitle = e.target.value;
-    setMemo({ ...memo, title: newTitle });
+    setLocalMemo({ ...localMemo, title: newTitle });
   };
 
   const updateContent = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newContent = e.target.value;
-    setMemo({ ...memo, content: newContent });
+    setLocalMemo({ ...localMemo, content: newContent });
   };
 
   const sendUpdate = () => {
     if (!id) return;
     const updatedMemo = {
-      title: memo.title,
-      content: memo.content,
+      title: localMemo.title,
+      content: localMemo.content,
     };
     dispatch(updateMemo({ id, memo: updatedMemo }));
   };
 
-  const sendDelete = async () => {
+  const sendDelete = () => {
     if (!id) return;
     dispatch(deleteMemo({ id }));
     navigate("/");
@@ -92,7 +94,7 @@ const Memo = () => {
           placeholder="無題"
           variant="outlined"
           fullWidth
-          value={memo.title}
+          value={localMemo.title}
           onChange={updateTitle}
           onBlur={sendUpdate}
           sx={{
@@ -105,7 +107,7 @@ const Memo = () => {
           placeholder="..."
           variant="outlined"
           fullWidth
-          value={memo.content}
+          value={localMemo.content}
           onChange={updateContent}
           onBlur={sendUpdate}
           sx={{
