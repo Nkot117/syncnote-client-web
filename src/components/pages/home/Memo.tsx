@@ -30,7 +30,7 @@ const Memo = () => {
       title: displayMemo.title,
       content: displayMemo.content,
     });
-  }, [id]);
+  }, [id, memos]);
 
   const updateTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newTitle = e.target.value;
