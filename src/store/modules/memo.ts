@@ -30,13 +30,13 @@ const memo = createSlice({
 
         const newMemo = action.payload;
         return [
-          ...state,
           {
             id: newMemo.id,
             title: newMemo.title,
             content: newMemo.content,
           },
-        ].reverse();
+          ...state,
+        ];
       });
     builder.addCase(updateMemo.fulfilled, (state, action) => {
       if (!action.payload) {

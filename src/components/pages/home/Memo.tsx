@@ -1,15 +1,21 @@
 import { Box, IconButton, TextField } from "@mui/material";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMemos } from "../../../hooks/useMemos";
 import { useAppDispatch } from "../../../hooks/hooks";
-import { deleteMemo, updateMemo } from "../../../store/modules/memo";
+import {
+  createMemo,
+  deleteMemo,
+  updateMemo,
+} from "../../../store/modules/memo";
 
 const Memo = () => {
   const { id } = useParams();
   const memos = useMemos();
   const dispatch = useAppDispatch();
+  const isClickButton = useRef(false);
   const [memo, setMemo] = useState({
     title: "",
     content: "",
@@ -51,6 +57,18 @@ const Memo = () => {
     navigate("/");
   };
 
+  const clickCreateMemoButton = () => {
+    isClickButton.current = true;
+    dispatch(createMemo());
+  };
+
+  useEffect(() => {
+    if (isClickButton.current) {
+      isClickButton.current = false;
+      navigate(`/memo/${memos[0].id}`);
+    }
+  }, [memos]);
+
   return (
     <>
       <Box
@@ -60,6 +78,10 @@ const Memo = () => {
           padding: "10px 50px",
         }}
       >
+        <IconButton onClick={clickCreateMemoButton}>
+          <NoteAddIcon />
+        </IconButton>
+
         <IconButton onClick={sendDelete}>
           <DeleteOutlinedIcon />
         </IconButton>
