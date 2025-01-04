@@ -80,11 +80,11 @@ const Memo = () => {
           padding: "10px 50px",
         }}
       >
-        <IconButton onClick={clickCreateMemoButton}>
+        <IconButton onClick={clickCreateMemoButton} color="primary">
           <NoteAddIcon />
         </IconButton>
 
-        <IconButton onClick={sendDelete}>
+        <IconButton onClick={sendDelete} color="error">
           <DeleteOutlinedIcon />
         </IconButton>
       </Box>
