@@ -4,7 +4,6 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const Sidebar = () => {
-  console.log("デバッグ")
   const memos = useMemos();
   const [activeMemoIndex, setActiveMemoIndex] = useState(0);
   const { id } = useParams();
