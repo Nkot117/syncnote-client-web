@@ -1,18 +1,18 @@
 import { Box, Drawer, ListItemButton, Typography } from "@mui/material";
 import { useMemos } from "../../../hooks/useMemos";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const Sidebar = () => {
+  console.log("Sidebar Render")
   const memos = useMemos();
   const [activeMemoIndex, setActiveMemoIndex] = useState(0);
   const { id } = useParams();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const index = memos.findIndex((memo) => memo.id === id);
     setActiveMemoIndex(index);
-  }, [navigate]);
+  }, [id, memos]);
 
   return (
     <Drawer

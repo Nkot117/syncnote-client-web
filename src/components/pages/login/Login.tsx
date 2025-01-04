@@ -12,6 +12,7 @@ import authService from "../../../service/authService";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  console.log("Login Render")
   const navigate = useNavigate();
   
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

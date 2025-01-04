@@ -12,6 +12,7 @@ import { useState } from "react";
 import authApi from "../../../api/features/authApi";
 
 const Register = () => {
+  console.log("Register Render")
   const [isFinished, setIsFinished] = useState(false);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

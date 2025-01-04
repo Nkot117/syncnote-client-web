@@ -6,6 +6,7 @@ import { useMemos } from "../../../hooks/useMemos";
 import { createMemo } from "../../../store/modules/memo";
 
 const Home = () => {
+  console.log("Home Render")
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const isClickButton = useRef(false);

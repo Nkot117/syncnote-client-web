@@ -12,6 +12,7 @@ import {
 } from "../../../store/modules/memo";
 
 const Memo = () => {
+  console.log("Memo Render")
   const { id } = useParams();
   const memos = useMemos();
   const dispatch = useAppDispatch();

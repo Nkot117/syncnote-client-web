@@ -2,6 +2,7 @@ import { Container } from "@mui/material";
 import { Outlet } from "react-router-dom";
 
 const LoginLayout = () => {
+  console.log("LoginLayout Render")
   return (
     <>
       <Container

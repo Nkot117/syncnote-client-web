@@ -5,6 +5,7 @@ import authHelper from "../../helpers/authHelper";
 import { useEffect } from "react";
 
 const HomeLayout = () => {
+  console.log("HomeLayout Render")
   const navigate = useNavigate();
 
   useEffect(() => {
