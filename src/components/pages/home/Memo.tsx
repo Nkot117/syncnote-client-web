@@ -2,7 +2,7 @@ import { Box, IconButton, TextField } from "@mui/material";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import { useNavigate, useParams } from "react-router-dom";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../hooks/hooks";
 import {
   createMemo,
@@ -18,58 +18,63 @@ const Memo = () => {
   const isClickButton = useRef(false);
   const navigate = useNavigate();
 
+  // 表示対象のメモをStoreから取得してキャッシュとして保持
   const memo = useMemo(() => {
     return memos.find((memo) => memo.id === id) || { title: "", content: "" };
   }, [id, memos]);
 
-  const [localMemo, setLocalMemo] = useState({
-    title: memo.title,
-    content: memo.content,
-  });
+  // 画面表示用の定数に格納
+  const [displayMemo, setDisplayMemo,] = useState(memo);
 
+  // memoが変化したときにdisplayMemoを更新
   useEffect(() => {
-    setLocalMemo({
-      title: memo.title,
-      content: memo.content,
-    });
+    setDisplayMemo(memo);
   }, [memo]);
 
-  const updateTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newTitle = e.target.value;
-    setLocalMemo({ ...localMemo, title: newTitle });
-  };
+  // フォームの入力を受け取って表示内容を更新する
+  // useCallbackで再レンダリング時に新しい関数が生成されるのを防ぐ
+  const updateField = useCallback(
+    (field: "title" | "content") =>
+      (e: React.ChangeEvent<HTMLInputElement>) => {
+        setDisplayMemo((prev) => ({ ...prev, [field]: e.target.value }));
+      },
+    []
+  );
 
-  const updateContent = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newContent = e.target.value;
-    setLocalMemo({ ...localMemo, content: newContent });
-  };
-
-  const sendUpdate = () => {
+  // dispatchを使ってStoreを更新する
+  // useCallbackで再レンダリング時に新しい関数が生成されるのを防ぐ
+  // id、displayMemoの内容が変更されたら再生成する
+  const sendUpdate = useCallback(() => {
     if (!id) return;
-    const updatedMemo = {
-      title: localMemo.title,
-      content: localMemo.content,
-    };
-    dispatch(updateMemo({ id, memo: updatedMemo }));
-  };
+    dispatch(updateMemo({ id, memo: displayMemo }));
+  }, [dispatch, id, displayMemo]);
 
-  const sendDelete = () => {
+
+  // dispatchを使ってStoreを更新する
+  // useCallbackで再レンダリング時に新しい関数が生成されるのを防ぐ
+  // idの内容が変更されたら再生成する
+  const sendDelete = useCallback(() => {
     if (!id) return;
     dispatch(deleteMemo({ id }));
     navigate("/");
-  };
+  }, [dispatch, id, navigate]);
 
-  const clickCreateMemoButton = () => {
+
+  // dispatchを使ってStoreを更新する
+  // useCallbackで再レンダリング時に新しい関数が生成されるのを防ぐ
+  const clickCreateMemoButton = useCallback(() => {
     isClickButton.current = true;
     dispatch(createMemo());
-  };
+  }, [dispatch]);
 
-  useEffect(() => {
-    if (isClickButton.current) {
+
+  // Storeのmemosが更新されたら遷移する
+    useEffect(() => {
+    if (isClickButton.current && memos.length > 0) {
       isClickButton.current = false;
       navigate(`/memo/${memos[0].id}`);
     }
-  }, [memos]);
+  }, [memos, navigate]);
 
   return (
     <>
@@ -94,8 +99,8 @@ const Memo = () => {
           placeholder="無題"
           variant="outlined"
           fullWidth
-          value={localMemo.title}
-          onChange={updateTitle}
+          value={displayMemo.title}
+          onChange={updateField('title')}
           onBlur={sendUpdate}
           sx={{
             ".MuiOutlinedInput-input": { padding: 0 },
@@ -107,8 +112,8 @@ const Memo = () => {
           placeholder="..."
           variant="outlined"
           fullWidth
-          value={localMemo.content}
-          onChange={updateContent}
+          value={displayMemo.content}
+          onChange={updateField('content')}
           onBlur={sendUpdate}
           sx={{
             ".MuiOutlinedInput-input": { padding: 0 },
