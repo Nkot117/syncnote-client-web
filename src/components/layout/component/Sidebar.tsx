@@ -1,5 +1,10 @@
 import {
   Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   Divider,
   Drawer,
   IconButton,
@@ -16,6 +21,8 @@ import { useMemo, useState } from "react";
 const Sidebar = () => {
   console.log("Sidebar Render");
   const [isAccountMenu, setIsAccountMenu] = useState(false);
+  const [isSholwLogoutDialog, setIsSholwLogoutDialog] = useState(false);
+  const [isSholwAccountDeleteDialog, setIsSholwAccountDeleteDialog] = useState(false);
   const memos = useMemos();
   const { id } = useParams();
   const activeMemoIndex = useMemo(() => {
@@ -24,6 +31,30 @@ const Sidebar = () => {
 
   const handleToggleMenu = () => {
     setIsAccountMenu((prev) => !prev);
+  };
+
+  const handleOpenLogoutDialog = () => {
+    setIsSholwLogoutDialog(true);
+  };
+
+  const handleCloseLogoutDialog = () => {
+    setIsSholwLogoutDialog(false);
+  };
+
+  const handleLogoutAction = () => {
+    handleCloseLogoutDialog();
+  };
+
+  const handleOpenAccountDeleteDialog = () => {
+    setIsSholwAccountDeleteDialog(true);
+  };
+
+  const handleCloseAccountDeleteDialog = () => {
+    setIsSholwAccountDeleteDialog(false);
+  };
+
+  const handleAccountDeleteAction = () => {
+    handleCloseAccountDeleteDialog();
   };
 
   return (
@@ -120,6 +151,7 @@ const Sidebar = () => {
           }}
         >
           <ListItemButton
+            onClick={handleOpenLogoutDialog}
             sx={{
               pl: 3,
               height: "50px",
@@ -148,6 +180,7 @@ const Sidebar = () => {
           <Divider sx={{ borderColor: "#ccc", marginY: 1 }} />
           <ListItem disablePadding>
             <ListItemButton
+            onClick={handleOpenAccountDeleteDialog}
               sx={{
                 pl: 3,
                 height: "50px",
@@ -177,6 +210,182 @@ const Sidebar = () => {
           </ListItem>
         </Box>
       )}
+
+      {/* ダイアログ */}
+      <Dialog
+        open={isSholwLogoutDialog}
+        onClose={handleCloseLogoutDialog}
+        sx={{
+          "& .MuiDialog-paper": {
+            borderRadius: "12px",
+            padding: "20px",
+            backgroundColor: "#f9f9f9",
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+          },
+        }}
+      >
+        <DialogTitle
+          sx={{
+            fontSize: "1.5rem",
+            fontWeight: "bold",
+            textAlign: "center",
+            color: "#333",
+          }}
+        >
+          ログアウト
+        </DialogTitle>
+        <DialogContent
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: "10px",
+          }}
+        >
+          <Typography
+            sx={{
+              fontSize: "1rem",
+              color: "#555",
+              textAlign: "center",
+              marginBottom: "20px",
+            }}
+          >
+            ログアウトしますか？
+          </Typography>
+        </DialogContent>
+        <DialogActions
+          sx={{
+            justifyContent: "center",
+            flexDirection: "column"
+          }}
+        >
+          <Button
+            onClick={handleLogoutAction}
+            sx={{
+              width: "200px",
+              backgroundColor: "#007BFF",
+              color: "#fff",
+              textTransform: "none",
+              fontWeight: "bold",
+              padding: "8px 20px",
+              borderRadius: "8px",
+              "&:hover": {
+                backgroundColor: "#0056b3",
+              },
+              marginBottom: "10px"
+            }}
+          >
+            ログアウト
+          </Button>
+          <Button
+            onClick={handleCloseLogoutDialog}
+            sx={{
+              width: "200px",
+              backgroundColor: "#f5f5f5",
+              color: "#333",
+              textTransform: "none",
+              fontWeight: "bold",
+              padding: "8px 20px",
+              borderRadius: "8px",
+              marginLeft: "10px",
+              "&:hover": {
+                backgroundColor: "#e0e0e0",
+              },
+            }}
+          >
+            キャンセル
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog
+        open={isSholwAccountDeleteDialog}
+        onClose={handleAccountDeleteAction}
+        sx={{
+          "& .MuiDialog-paper": {
+            borderRadius: "12px",
+            padding: "20px",
+            backgroundColor: "#f9f9f9",
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+          },
+        }}
+      >
+        <DialogTitle
+          sx={{
+            fontSize: "1.5rem",
+            fontWeight: "bold",
+            textAlign: "center",
+            color: "#333",
+          }}
+        >
+          アカウント削除
+        </DialogTitle>
+        <DialogContent
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: "10px",
+          }}
+        >
+          <Typography
+            sx={{
+              fontSize: "1rem",
+              color: "#555",
+              textAlign: "center",
+              marginBottom: "20px",
+            }}
+          >
+            アカウントを削除しますか？<br />
+            削除するとメモが全て消去されます。
+          </Typography>
+        </DialogContent>
+        <DialogActions
+          sx={{
+            justifyContent: "center",
+            flexDirection: "column", 
+          }}
+        >
+          <Button
+            onClick={handleAccountDeleteAction}
+            sx={{
+              width: "200px",
+              backgroundColor: "#f32d06df",
+              color: "#fff",
+              textTransform: "none",
+              fontWeight: "bold",
+              padding: "8px 20px",
+              borderRadius: "8px",
+              "&:hover": {
+                backgroundColor: "#b31200",
+              },
+              marginBottom: "10px"
+            }}
+          >
+            削除
+          </Button>
+          <Button
+            onClick={handleCloseAccountDeleteDialog}
+            sx={{
+              width: "200px",
+              backgroundColor: "#f5f5f5",
+              color: "#333",
+              textTransform: "none",
+              fontWeight: "bold",
+              padding: "8px 20px",
+              borderRadius: "8px",
+              marginLeft: "10px",
+              "&:hover": {
+                backgroundColor: "#e0e0e0",
+              },
+            }}
+          >
+            キャンセル
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Drawer>
   );
 };
