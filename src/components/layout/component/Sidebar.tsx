@@ -15,11 +15,13 @@ import {
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useMemos } from "../../../hooks/useMemos";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useMemo, useState } from "react";
+import authHelper from "../../../helpers/authHelper";
 
 const Sidebar = () => {
   console.log("Sidebar Render");
+  const navigate = useNavigate();
   const [isAccountMenu, setIsAccountMenu] = useState(false);
   const [isSholwLogoutDialog, setIsSholwLogoutDialog] = useState(false);
   const [isSholwAccountDeleteDialog, setIsSholwAccountDeleteDialog] = useState(false);
@@ -42,6 +44,8 @@ const Sidebar = () => {
   };
 
   const handleLogoutAction = () => {
+    authHelper.logout()
+    navigate("/login");
     handleCloseLogoutDialog();
   };
 

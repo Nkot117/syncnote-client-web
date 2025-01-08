@@ -11,6 +11,10 @@ const authHelper = {
   saveRefreshToken: (token: string) => {
     localStorage.setItem("refreshToken", token);
   },
+  logout: () => {
+    localStorage.removeItem("accessToken")
+    localStorage.removeItem("refreshToken")
+  }
 };
 
 export default authHelper;
