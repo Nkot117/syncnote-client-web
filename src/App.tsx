@@ -9,7 +9,7 @@ import Memo from "./components/pages/home/Memo";
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/syncnote-client-web/">
       <Routes>
         <Route path="/" element={<LoginLayout />}>
           <Route path="login" element={<Login />} />
