@@ -1,3 +1,6 @@
+import { useAppDispatch } from "../hooks/hooks";
+import { clearMemos } from "../store/modules/memo";
+
 const authHelper = {
   getAccessToken: () => {
     return localStorage.getItem("accessToken");
@@ -14,6 +17,8 @@ const authHelper = {
   logout: () => {
     localStorage.removeItem("accessToken")
     localStorage.removeItem("refreshToken")
+    const dispatch = useAppDispatch();
+    dispatch(clearMemos())
   }
 };
 

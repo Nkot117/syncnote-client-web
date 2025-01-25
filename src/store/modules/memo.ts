@@ -8,20 +8,26 @@ const initialState: MemoDetail[] = [];
 const memo = createSlice({
   name: "memo",
   initialState,
-  reducers: {},
+  reducers: {
+    clearMemos: () => {
+      return initialState;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getAndSaveMemos.fulfilled, (_, action) => {
       if (!action.payload) {
         return initialState;
       }
 
-      return action.payload.map((memo) => {
-        return {
-          id: memo.id,
-          title: memo.title,
-          content: memo.content,
-        };
-      }).reverse();
+      return action.payload
+        .map((memo) => {
+          return {
+            id: memo.id,
+            title: memo.title,
+            content: memo.content,
+          };
+        })
+        .reverse();
     }),
       builder.addCase(createMemo.fulfilled, (state, action) => {
         if (!action.payload) {
@@ -120,4 +126,5 @@ const deleteMemo = createAsyncThunk<{ id: string }, { id: string }>(
 );
 
 export { getAndSaveMemos, createMemo, updateMemo, deleteMemo };
+export const { clearMemos } = memo.actions;
 export default memo.reducer;
