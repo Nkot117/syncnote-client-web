@@ -14,10 +14,9 @@ const authHelper = {
   saveRefreshToken: (token: string) => {
     localStorage.setItem("refreshToken", token);
   },
-  logout: () => {
+  logout: (dispatch: ReturnType<typeof useAppDispatch> ) => {
     localStorage.removeItem("accessToken")
     localStorage.removeItem("refreshToken")
-    const dispatch = useAppDispatch();
     dispatch(clearMemos())
   }
 };

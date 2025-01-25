@@ -18,10 +18,14 @@ import { useMemos } from "../../../hooks/useMemos";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useMemo, useState } from "react";
 import authHelper from "../../../helpers/authHelper";
+import { useAppDispatch } from "../../../hooks/hooks";
+import { useDispatch } from "react-redux";
+import { clearMemos } from "../../../store/modules/memo";
 
 const Sidebar = () => {
   console.log("Sidebar Render");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [isAccountMenu, setIsAccountMenu] = useState(false);
   const [isSholwLogoutDialog, setIsSholwLogoutDialog] = useState(false);
   const [isSholwAccountDeleteDialog, setIsSholwAccountDeleteDialog] = useState(false);
@@ -44,7 +48,7 @@ const Sidebar = () => {
   };
 
   const handleLogoutAction = () => {
-    authHelper.logout()
+    authHelper.logout(dispatch)
     navigate("/login");
     handleCloseLogoutDialog();
   };
