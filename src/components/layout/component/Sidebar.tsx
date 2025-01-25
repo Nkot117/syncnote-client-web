@@ -18,9 +18,7 @@ import { useMemos } from "../../../hooks/useMemos";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useMemo, useState } from "react";
 import authHelper from "../../../helpers/authHelper";
-import { useAppDispatch } from "../../../hooks/hooks";
 import { useDispatch } from "react-redux";
-import { clearMemos } from "../../../store/modules/memo";
 import authApi from "../../../api/features/authApi";
 
 const Sidebar = () => {
