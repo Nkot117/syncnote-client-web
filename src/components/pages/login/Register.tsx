@@ -32,7 +32,7 @@ const Register = () => {
 
   return (
     <LoginCard>
-      {isFinished ? (
+      {!isFinished ? (
         // フォームを表示
         <>
           <Typography

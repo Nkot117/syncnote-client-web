@@ -21,6 +21,7 @@ import authHelper from "../../../helpers/authHelper";
 import { useAppDispatch } from "../../../hooks/hooks";
 import { useDispatch } from "react-redux";
 import { clearMemos } from "../../../store/modules/memo";
+import authApi from "../../../api/features/authApi";
 
 const Sidebar = () => {
   console.log("Sidebar Render");
@@ -28,7 +29,8 @@ const Sidebar = () => {
   const dispatch = useDispatch();
   const [isAccountMenu, setIsAccountMenu] = useState(false);
   const [isSholwLogoutDialog, setIsSholwLogoutDialog] = useState(false);
-  const [isSholwAccountDeleteDialog, setIsSholwAccountDeleteDialog] = useState(false);
+  const [isSholwAccountDeleteDialog, setIsSholwAccountDeleteDialog] =
+    useState(false);
   const memos = useMemos();
   const { id } = useParams();
   const activeMemoIndex = useMemo(() => {
@@ -48,7 +50,7 @@ const Sidebar = () => {
   };
 
   const handleLogoutAction = () => {
-    authHelper.logout(dispatch)
+    authHelper.logout(dispatch);
     navigate("/login");
     handleCloseLogoutDialog();
   };
@@ -62,6 +64,8 @@ const Sidebar = () => {
   };
 
   const handleAccountDeleteAction = () => {
+    authApi.delete();
+    navigate("/login");
     handleCloseAccountDeleteDialog();
   };
 
@@ -188,7 +192,7 @@ const Sidebar = () => {
           <Divider sx={{ borderColor: "#ccc", marginY: 1 }} />
           <ListItem disablePadding>
             <ListItemButton
-            onClick={handleOpenAccountDeleteDialog}
+              onClick={handleOpenAccountDeleteDialog}
               sx={{
                 pl: 3,
                 height: "50px",
@@ -265,7 +269,7 @@ const Sidebar = () => {
         <DialogActions
           sx={{
             justifyContent: "center",
-            flexDirection: "column"
+            flexDirection: "column",
           }}
         >
           <Button
@@ -281,7 +285,7 @@ const Sidebar = () => {
               "&:hover": {
                 backgroundColor: "#0056b3",
               },
-              marginBottom: "10px"
+              marginBottom: "10px",
             }}
           >
             ログアウト
@@ -346,14 +350,15 @@ const Sidebar = () => {
               marginBottom: "20px",
             }}
           >
-            アカウントを削除しますか？<br />
+            アカウントを削除しますか？
+            <br />
             削除するとメモが全て消去されます。
           </Typography>
         </DialogContent>
         <DialogActions
           sx={{
             justifyContent: "center",
-            flexDirection: "column", 
+            flexDirection: "column",
           }}
         >
           <Button
@@ -369,7 +374,7 @@ const Sidebar = () => {
               "&:hover": {
                 backgroundColor: "#b31200",
               },
-              marginBottom: "10px"
+              marginBottom: "10px",
             }}
           >
             削除
