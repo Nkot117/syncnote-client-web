@@ -1,20 +1,27 @@
 import {
+  Alert,
   Box,
   Button,
   FormControl,
   FormLabel,
   Link,
+  Snackbar,
   TextField,
   Typography,
 } from "@mui/material";
 import { LoginCard } from "../../styles/LoginCardStyle";
 import authService from "../../../service/authService";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Login = () => {
   console.log("Login Render")
   const navigate = useNavigate();
+  const [isLoginError, setLoginError] = useState(false)
   
+  const handleClose =() =>  {
+    setLoginError(false)
+  }
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
@@ -26,6 +33,7 @@ const Login = () => {
       navigate("/")
     } catch (error) {
       console.error(error);
+      setLoginError(true)
     }
   };
   return (
@@ -85,6 +93,18 @@ const Login = () => {
             ログイン
           </Button>
         </Box>
+
+        <Snackbar
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          open={isLoginError === true}
+          autoHideDuration={6000}
+        >
+          <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+            ログインできませんでした。
+            メールアドレス、パスワードをお確かめの上、再度ログインしてください。
+          </Alert>
+        </Snackbar>
+        
         <Typography sx={{ textAlign: "center" }}>
           <span>
             <Link
