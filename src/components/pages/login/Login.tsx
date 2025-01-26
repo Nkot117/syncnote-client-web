@@ -36,6 +36,11 @@ const Login = () => {
       setLoginError(true)
     }
   };
+
+  const moveRegisterPage = () => {
+    navigate("/register");
+  };
+
   return (
     <>
       <LoginCard>
@@ -108,8 +113,8 @@ const Login = () => {
         <Typography sx={{ textAlign: "center" }}>
           <span>
             <Link
-              href="register"
               component={Link}
+              onClick={moveRegisterPage}
               variant="body2"
               sx={{ alignSelf: "center" }}
             >

@@ -10,10 +10,12 @@ import {
 import { LoginCard } from "../../styles/LoginCardStyle";
 import { useState } from "react";
 import authApi from "../../../api/features/authApi";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-  console.log("Register Render")
+  console.log("Register Render");
   const [isFinished, setIsFinished] = useState(false);
+  const navigate = useNavigate();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
@@ -28,6 +30,10 @@ const Register = () => {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const moveLoginPage = () => {
+    navigate("/login");
   };
 
   return (
@@ -122,8 +128,8 @@ const Register = () => {
           <Typography sx={{ textAlign: "center" }}>
             <span>
               <Link
-                href="login"
                 component={Link}
+                onClick={moveLoginPage}
                 variant="body2"
                 sx={{ alignSelf: "center" }}
               >
@@ -147,7 +153,7 @@ const Register = () => {
           <Button
             variant="contained"
             color="primary"
-            href="login"
+            onClick={moveLoginPage}
             sx={{ textTransform: "none", borderRadius: "20px" }}
           >
             ログイン画面へ
