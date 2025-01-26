@@ -6,7 +6,12 @@
     <title>Sync-note</title>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root" style="display: none;"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
+  <script>
+    window.onload = () => {
+      document.getElementById("root").style.display = "block";
+    };
+  </script>
 </html>
