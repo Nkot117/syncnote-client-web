@@ -3,15 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="loader.css">
-</head>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+    }
 
+    .loading-container {
+      text-align: center;
+    }
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid #ccc;
+      border-top: 5px solid #007bff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+
+    .loading-text {
+      margin-top: 15px;
+      font-size: 18px;
+      color: #555;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
 <body>
-  <div id="loading">
-    <div class="loading-wrapper">
-      <div class="loader"></div>
-    </div>
-    <div class="title"><span></span></div>
+  <div class="loading-container">
+    <div class="spinner"></div>
+    <p class="loading-text">Loading...</p>
   </div>
 </body>
 
@@ -19,7 +56,7 @@
   const path = window.location.pathname;
   const [base, ...rest] = path.split('/');
   const redirectPath = base + "?path=" + rest.join("/");
-  // window.location = redirectPath;
+  window.location = redirectPath;
   console.log("redirect to " + redirectPath);
 </script>
 
