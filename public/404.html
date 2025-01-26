@@ -16,7 +16,9 @@
   </body>
   <script>
     const path = window.location.pathname;
-    window.location = "syncnote-client-web/?path=" + path;
-    console.log("syncnote-client-web/?path=" + path);
+    const [base, ...rest] = path.split('/');
+    const redirectPath = base + "?path=" + rest.join("/");
+    window.location = redirectPath;
+    console.log("redirect to " + redirectPath);
   </script>
 </html>
