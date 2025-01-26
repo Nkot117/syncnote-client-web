@@ -1,24 +1,26 @@
 <!DOCTYPE html>
-<html lang="ja">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>404 Not Found</title>
-    <meta http-equiv="refresh" content="0;" />
-  </head>
-  <body>
-    <div id="loading">
-      <div class="loading-wrapper">
-        <div class="loader"></div>
-      </div>
-      <div class="title"><span></span></div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="loader.css">
+</head>
+
+<body>
+  <div id="loading">
+    <div class="loading-wrapper">
+      <div class="loader"></div>
     </div>
-  </body>
-  <script>
-    const path = window.location.pathname;
-    const [base, ...rest] = path.split('/');
-    const redirectPath = base + "?path=" + rest.join("/");
-    // window.location = redirectPath;
-    console.log("redirect to " + redirectPath);
-  </script>
+    <div class="title"><span></span></div>
+  </div>
+</body>
+
+<script>
+  const path = window.location.pathname;
+  const [base, ...rest] = path.split('/');
+  const redirectPath = base + "?path=" + rest.join("/");
+  // window.location = redirectPath;
+  console.log("redirect to " + redirectPath);
+</script>
+
 </html>
