@@ -6,9 +6,11 @@ const LoginLayout = () => {
   console.log("LoginLayout Render");
   const navigate = useNavigate();
   useEffect(() => {
+    const currentUrl = window.location.href;
+    console.log("現在のパス" + currentUrl)
     const urlParams = new URLSearchParams(window.location.search);
     const pathParam = urlParams.get('path');
-    console.log("pathParam：" + pathParam)
+    console.log("パラメータ" + pathParam)
     if(pathParam) {
       navigate(pathParam)
     }
