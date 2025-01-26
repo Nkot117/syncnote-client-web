@@ -20,9 +20,9 @@ const HomeLayout = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const pathParam = urlParams.get('path');
     console.log("パラメータ" + pathParam)
-    if(pathParam) {
-      navigate(pathParam)
-    }
+    // if(pathParam) {
+    //   navigate(pathParam)
+    // }
   }, [navigate]);
 
   return (
