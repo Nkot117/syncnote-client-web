@@ -6,8 +6,12 @@ const LoginLayout = () => {
   console.log("LoginLayout Render");
   const navigate = useNavigate();
   useEffect(() => {
-    const currentUrl = window.location.href;
-    console.log("log:" + currentUrl);
+    const urlParams = new URLSearchParams(window.location.search);
+    const pathParam = urlParams.get('path');
+    console.log("pathParam：" + pathParam)
+    if(pathParam) {
+      navigate(pathParam)
+    }
   }, [navigate]);
   return (
     <>
