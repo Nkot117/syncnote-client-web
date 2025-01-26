@@ -18,7 +18,7 @@
     const path = window.location.pathname;
     const [base, ...rest] = path.split('/');
     const redirectPath = base + "?path=" + rest.join("/");
-    window.location = redirectPath;
+    // window.location = redirectPath;
     console.log("redirect to " + redirectPath);
   </script>
 </html>
