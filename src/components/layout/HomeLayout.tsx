@@ -5,13 +5,18 @@ import authHelper from "../../helpers/authHelper";
 import { useEffect } from "react";
 
 const HomeLayout = () => {
-  console.log("HomeLayout Render")
+  console.log("HomeLayout Render");
   const navigate = useNavigate();
 
   useEffect(() => {
     if (authHelper.getAccessToken() === null) {
       navigate("/login");
     }
+  }, [navigate]);
+
+  useEffect(() => {
+    const currentUrl = window.location.href;
+    console.log("log:" + currentUrl);
   }, [navigate]);
 
   return (

@@ -1,8 +1,14 @@
 import { Container } from "@mui/material";
-import { Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const LoginLayout = () => {
-  console.log("LoginLayout Render")
+  console.log("LoginLayout Render");
+  const navigate = useNavigate();
+  useEffect(() => {
+    const currentUrl = window.location.href;
+    console.log("log:" + currentUrl);
+  }, [navigate]);
   return (
     <>
       <Container
