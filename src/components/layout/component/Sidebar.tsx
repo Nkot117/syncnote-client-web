@@ -49,7 +49,7 @@ const Sidebar = () => {
 
   const handleLogoutAction = () => {
     authHelper.logout(dispatch);
-    navigate("/login");
+    navigate("/syncnote-client-web/login");
     handleCloseLogoutDialog();
   };
 
@@ -63,7 +63,7 @@ const Sidebar = () => {
 
   const handleAccountDeleteAction = () => {
     authApi.delete();
-    navigate("/login");
+    navigate("/syncnote-client-web/login");
     handleCloseAccountDeleteDialog();
   };
 
@@ -125,7 +125,7 @@ const Sidebar = () => {
                   },
                 }}
                 component={Link}
-                to={`/memo/${memo.id}`}
+                to={`/syncnote-client-web/memo/${memo.id}`}
                 selected={index === activeMemoIndex}
               >
                 <Typography

@@ -122,7 +122,7 @@ const Register = () => {
           <Typography sx={{ textAlign: "center" }}>
             <span>
               <Link
-                href="/login"
+                href="/syncnote-client-web/login"
                 component={Link}
                 variant="body2"
                 sx={{ alignSelf: "center" }}
@@ -147,7 +147,7 @@ const Register = () => {
           <Button
             variant="contained"
             color="primary"
-            href="/login"
+            href="/syncnote-client-web/login"
             sx={{ textTransform: "none", borderRadius: "20px" }}
           >
             ログイン画面へ

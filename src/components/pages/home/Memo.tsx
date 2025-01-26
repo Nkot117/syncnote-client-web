@@ -55,7 +55,7 @@ const Memo = () => {
   const sendDelete = useCallback(() => {
     if (!id) return;
     dispatch(deleteMemo({ id }));
-    navigate("/");
+    navigate("/syncnote-client-web/");
   }, [dispatch, id, navigate]);
 
   // dispatchを使ってStoreを更新する
@@ -69,7 +69,7 @@ const Memo = () => {
   useEffect(() => {
     if (isClickButton.current && memos.length > 0) {
       isClickButton.current = false;
-      navigate(`/memo/${memos[0].id}`);
+      navigate(`/syncnote-client-web/memo/${memos[0].id}`);
     }
   }, [memos, navigate]);
 

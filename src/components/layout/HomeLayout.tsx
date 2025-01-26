@@ -10,7 +10,7 @@ const HomeLayout = () => {
 
   useEffect(() => {
     if (authHelper.getAccessToken() === null) {
-      navigate("/login");
+      navigate("/syncnote-client-web/login");
     }
   }, [navigate]);
 
