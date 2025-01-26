@@ -55,7 +55,7 @@
 <script>
   const path = window.location.pathname;
   console.log("path" + path)
-  const [base, ...rest] = path.split('/');
+  const [_, base, ...rest] = path.split('/');
   console.log("base" + base)
   console.log("rest" + rest)
   const redirectPath = base + "?path=" + rest.join("/");
