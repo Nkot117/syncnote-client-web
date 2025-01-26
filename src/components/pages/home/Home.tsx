@@ -19,7 +19,7 @@ const Home = () => {
   useEffect(() => {
     if (isClickButton.current) {
       isClickButton.current = false;
-      navigate(`/syncnote-client-web/memo/${memos[0].id}`);
+      navigate(`/memo/${memos[0].id}`);
     }
   }, [memos]);
 

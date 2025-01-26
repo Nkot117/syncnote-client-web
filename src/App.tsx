@@ -7,20 +7,18 @@ import HomeLayout from "./components/layout/HomeLayout";
 import Home from "./components/pages/home/Home";
 import Memo from "./components/pages/home/Memo";
 
-const BASE_NAME = "/syncnote-client-web/";
-
 const App = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/syncnote-client-web/">
       <Routes>
-        <Route path={BASE_NAME} element={<LoginLayout />}>
-          <Route path={BASE_NAME + "login"} element={<Login />} />
-          <Route path={BASE_NAME + "register"} element={<Register />} />
+        <Route path="/" element={<LoginLayout />}>
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
         </Route>
-        <Route path={BASE_NAME} element={<HomeLayout />}>
+        <Route path="/" element={<HomeLayout />}>
           <Route index element={<Home />} />
-          <Route path={BASE_NAME + "memo"} element={<Home />} />
-          <Route path={BASE_NAME + "memo/:id"} element={<Memo />} />
+          <Route path="memo" element={<Home />} />
+          <Route path="memo/:id" element={<Memo />} />
         </Route>
       </Routes>
     </BrowserRouter>

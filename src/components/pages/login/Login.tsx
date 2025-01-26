@@ -30,7 +30,7 @@ const Login = () => {
     try {
       const response = await authService.login({ email, password });
       console.log(response);
-      navigate("/syncnote-client-web/")
+      navigate("/")
     } catch (error) {
       console.error(error);
       setLoginError(true)
@@ -108,7 +108,7 @@ const Login = () => {
         <Typography sx={{ textAlign: "center" }}>
           <span>
             <Link
-              href="/syncnote-client-web/register "
+              href="register"
               component={Link}
               variant="body2"
               sx={{ alignSelf: "center" }}
