@@ -1,50 +1,33 @@
-# React + TypeScript + Vite
+## 概要
+ユーザー情報を登録することで、気軽にメモを作成・保存できるWebアプリです。 サーバーサイドは [syncnote-server](https://github.com/Nkot117/syncnote-server/tree/main) とAPI通信でやりとりします。
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 機能
+- ユーザー情報
+  - 作成
+  - 削除
+- メモ情報
+  - メモの一覧表示、詳細表示
+  - メモの新規作成
+  - メモ内容の編集
+  - メモの削除
+- 認証管理
+  - サーバーサイドアプリから払い出されるJWTトークンをアプリ内で保持し、APIリクエスト時にヘッダーに付与して認証チェック
+ 
+## スクリーンショット
+| ログイン画面 | サインアップ画面 | メモ画面 | アカウント画面 |
+| :---: | :---: | :---: | :---:
+| ![ログイン](https://github.com/user-attachments/assets/73754925-1125-46c4-a2eb-8ef6329aaac3)| ![サインアップ](https://github.com/user-attachments/assets/8ec00f70-47f3-4641-9c2a-a86bdeb8e98f)| ![メモ画面](https://github.com/user-attachments/assets/f8514597-f632-44ab-a6eb-bb8816a777ca) | ![アカウント画面](https://github.com/user-attachments/assets/992d23ce-e9ff-45d8-8c4c-98f947a56bcb)
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## 使用技術
+- 言語・アーキテクチャ
+  - TypeScript
+  - React
+- 状態管理
+  - Redux
+- ルーティング
+  - React Router
+- HTTPクライアント
+  - Axios
+- ビルドツール
+  - Vite
